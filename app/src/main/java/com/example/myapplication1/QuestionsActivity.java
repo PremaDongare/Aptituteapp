@@ -76,6 +76,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
                     }
                     playAnim(question, 0,list.get(position).getQuestion());
+
                     nextBtn.setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick (View v) {
@@ -86,7 +87,18 @@ public class QuestionsActivity extends AppCompatActivity {
                                 return ;
                             }
                             count = 0;
+                            resetOptions();
+
                             playAnim(question, 0, list.get(position).getQuestion());
+                        }
+
+                        private void resetOptions() {
+                            for (int i = 0; i < 4; i++) {
+                                Button optionButton = (Button) optionsContainer.getChildAt(i);
+                                optionButton.setEnabled(true);
+                                optionButton.setBackgroundTintList(null);
+
+                            }
                         }
                     });
                 } else {
