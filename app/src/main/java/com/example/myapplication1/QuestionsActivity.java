@@ -28,6 +28,7 @@ public class QuestionsActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("null");
     private TextView question, noIndicator;
+
     private LinearLayout optionsContainer;
     private Button shareBtn, nextBtn;
     private int count = 0;
@@ -57,12 +58,15 @@ public class QuestionsActivity extends AppCompatActivity {
         myRef.child("SETS").child(categort).child("questions").orderByChild("setNo").equalTo(setNo).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot Snapshot : dataSnapshot.getChildren()){
-                    list.add(dataSnapshot.getValue(QuestionModel.class));
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    QuestionModel questionModel = snapshot.getValue(QuestionModel.class);
+                    list.add(questionModel);
                 }
-                if(list.size()>0){
+
+                if (list.size() > 0) {
 
                     for (int i = 0; i < 4; i++) {
+
                         optionsContainer.getChildAt(i).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -79,15 +83,15 @@ public class QuestionsActivity extends AppCompatActivity {
                             nextBtn.setAlpha(0.7f);
                             position++;
                             if (position == list.size()) {
-                                return;
+                                return ;
                             }
                             count = 0;
                             playAnim(question, 0, list.get(position).getQuestion());
                         }
                     });
-                }else {
+                } else {
                     finish();
-                    Toast.makeText(QuestionsActivity.this, "no questions", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuestionsActivity.this, "No questions", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -104,7 +108,7 @@ public class QuestionsActivity extends AppCompatActivity {
         view.animate().alpha(value).scaleX(value).scaleY(value).setDuration(500).setStartDelay(100)
                 .setInterpolator(new DecelerateInterpolator()).setListener(new Animator.AnimatorListener() {
                     @Override
-                    public void onAnimationStart(@NonNull Animator animation) {
+                    public void onAnimationStart( Animator animation) {
                         if (value == 0 && count < 4 ){
                             String option = "";
                             if (count == 0){
@@ -116,7 +120,7 @@ public class QuestionsActivity extends AppCompatActivity {
                             }else if (count ==3){
                                 option = list.get(position).getOptionD();
                             }
-                            playAnim(optionsContainer.getChildAt(count), 0,option);
+                            playAnim(optionsContainer.getChildAt(count), 0, option);
                             count++;
                         }
                     }
@@ -126,7 +130,6 @@ public class QuestionsActivity extends AppCompatActivity {
                         if (value == 0) {
                             try {
                                 ((TextView) view).setText(data);
-                                noIndicator.setText(position+1+"/"+list.size());
                             } catch (ClassCastException ex) {
                                 ((Button) view).setText(data);
                             }
@@ -138,12 +141,12 @@ public class QuestionsActivity extends AppCompatActivity {
 
 
                     @Override
-                    public void onAnimationCancel(@NonNull Animator animation) {
+                    public void onAnimationCancel( Animator animation) {
 
                     }
 
                     @Override
-                    public void onAnimationRepeat(@NonNull Animator animation) {
+                    public void onAnimationRepeat( Animator animation) {
 
                     }
                 });
@@ -158,16 +161,14 @@ public class QuestionsActivity extends AppCompatActivity {
                 selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF44D53A")));
             } else {
                 selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
-                Button correctoption=(Button) optionsContainer.findViewWithTag(list.get(position).getCorrectANS());
+                Button correctoption = (Button) optionsContainer.findViewWithTag(list.get(position).getCorrectANS());
                 correctoption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#848484")));
             }
         }
         private void enableOption(boolean enable){
         for (int i = 0;i < 4; i++){
             optionsContainer.getChildAt(i).setEnabled(enable);
-            if (enable){
-                optionsContainer.getChildAt(i).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#989898")));
-            }
+
         }
         }
 }
