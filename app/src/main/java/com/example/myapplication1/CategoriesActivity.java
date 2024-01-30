@@ -23,6 +23,7 @@ public class CategoriesActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("null");
     private RecyclerView recyclerView;
+    private List<CategoryModel> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,27 +41,23 @@ public class CategoriesActivity extends AppCompatActivity {
         layoutManager.setOrientation(RecyclerView.VERTICAL);
 
         recyclerView.setLayoutManager(layoutManager);
-        List<CategoryModel> list = new ArrayList<>();
-        list.add(new CategoryModel("","Category1"));
-        list.add(new CategoryModel("", "Category2"));
-        list.add(new CategoryModel("", "Category3"));
-        list.add(new CategoryModel("","Category1"));
-        list.add(new CategoryModel("","Category1"));
-        list.add(new CategoryModel("","Category1"));
-        list.add(new CategoryModel("","Category1"));
-        list.add(new CategoryModel("","Category1"));
+        list = new ArrayList<>();
 
         CategoryAdapter adapter = new CategoryAdapter(list);
         recyclerView.setAdapter(adapter);
-        myRef.child("Categories").child("category1").child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("Categories").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Toast.makeText(CategoriesActivity.this,dataSnapshot.getValue().toString(),Toast.LENGTH_SHORT).show();
+                for (DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+                    list.add(dataSnapshot1.getValue(CategoryModel.class));
+
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(CategoriesActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

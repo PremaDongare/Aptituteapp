@@ -4,11 +4,15 @@ public class CategoryModel {
     private String name;
     private int sets;
     private String url;
+    public CategoryModel(){
+
+    }
 
     public CategoryModel(String name, int sets, String url) {
         this.name = name;
         this.sets = sets;
         this.url = url;
+
     }
 
     public String getName() {
