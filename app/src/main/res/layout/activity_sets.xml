@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:text="@string/sets"
         android:textStyle="bold"
+        android:layout_marginBottom="5dp"
         android:textSize="28sp"
         android:textColor="@android:color/black"
         android:padding="16dp"/>
