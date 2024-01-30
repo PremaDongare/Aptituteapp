@@ -155,7 +155,7 @@ public class QuestionsActivity extends AppCompatActivity {
             nextBtn.setAlpha(1);
             if (selectedOption.getText().toString().equals(list.get(position).getCorrectANS())) {
                 score++;
-                selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#848484")));
+                selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF44D53A")));
             } else {
                 selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
                 Button correctoption=(Button) optionsContainer.findViewWithTag(list.get(position).getCorrectANS());
