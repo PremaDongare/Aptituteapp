@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.animation.Animator;
+import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -37,6 +39,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private int score = 0;
     private String categort;
     private int setNo;
+    private Dialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,14 @@ public class QuestionsActivity extends AppCompatActivity {
         categort = getIntent().getStringExtra("category");
         setNo = getIntent().getIntExtra("setNo", 1);
 
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.loading);
+        loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.rounded_borders));
+        loadingDialog.getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT );
+        loadingDialog.setCancelable(false);
+
         list = new ArrayList<>();
+        loadingDialog.show();
         myRef.child("SETS").child(categort).child("questions").orderByChild("setNo").equalTo(setNo).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -77,18 +87,25 @@ public class QuestionsActivity extends AppCompatActivity {
                     }
                     playAnim(question, 0,list.get(position).getQuestion());
 
-                    nextBtn.setOnClickListener(new View.OnClickListener(){
+                    nextBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick (View v) {
+                        public void onClick(View v) {
                             nextBtn.setEnabled(false);
                             nextBtn.setAlpha(0.7f);
-                            position++;
-                            if (position == list.size()) {
-                                return ;
+
+                            if (position == list.size() ) {
+                                // If all questions are answered, you can launch ScoreActivity here.
+                                Intent scoreIntent = new Intent(QuestionsActivity.this, ScoreActivity.class);
+                                scoreIntent.putExtra("score", score);
+                                scoreIntent.putExtra("total", list.size());
+                                startActivity(scoreIntent);
+                                finish();
+                                return;
                             }
+
+                            position++;
                             count = 0;
                             resetOptions();
-
                             playAnim(question, 0, list.get(position).getQuestion());
                         }
 
@@ -97,19 +114,22 @@ public class QuestionsActivity extends AppCompatActivity {
                                 Button optionButton = (Button) optionsContainer.getChildAt(i);
                                 optionButton.setEnabled(true);
                                 optionButton.setBackgroundTintList(null);
-
                             }
                         }
                     });
+
                 } else {
                     finish();
                     Toast.makeText(QuestionsActivity.this, "No questions", Toast.LENGTH_SHORT).show();
                 }
+                loadingDialog.dismiss();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(QuestionsActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                loadingDialog.dismiss();
+                finish();
             }
         });
 
@@ -174,7 +194,10 @@ public class QuestionsActivity extends AppCompatActivity {
             } else {
                 selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
                 Button correctoption = (Button) optionsContainer.findViewWithTag(list.get(position).getCorrectANS());
-                correctoption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#848484")));
+                if (correctoption != null) {
+                    correctoption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#848484")));
+                }
+
             }
         }
         private void enableOption(boolean enable){
