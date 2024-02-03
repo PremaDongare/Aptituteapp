@@ -85,7 +85,7 @@ public class QuestionsActivity extends AppCompatActivity {
                         });
 
                     }
-                    playAnim(question, 0,list.get(position).getQuestion());
+                    playAnim(question, 0, list.get(position).getQuestion().toString());
 
                     nextBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -106,7 +106,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
                             count = 0;
                             resetOptions();
-                            playAnim(question, 0, list.get(position).getQuestion());
+                             playAnim(question, 0, list.get(position).getQuestion().toString());
                         }
 
                         private void resetOptions() {
@@ -141,7 +141,7 @@ public class QuestionsActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationStart( Animator animation) {
                         if (value == 0 && count < 4 ){
-                            String option = "";
+                            Object option = "";
                             if (count == 0){
                                 option = list.get(position).getOptionA();
                             } else if (count ==1) {
@@ -151,7 +151,7 @@ public class QuestionsActivity extends AppCompatActivity {
                             }else if (count ==3){
                                 option = list.get(position).getOptionD();
                             }
-                            playAnim(optionsContainer.getChildAt(count), 0, option);
+                            playAnim(optionsContainer.getChildAt(count), 0, (String) option);
                             count++;
                         }
                     }
