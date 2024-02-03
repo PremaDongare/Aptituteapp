@@ -51,7 +51,6 @@ public class QuestionsActivity extends AppCompatActivity {
         question = findViewById(R.id.question);
         noIndicator = findViewById(R.id.no_indicator);
         optionsContainer = findViewById(R.id.options_container);
-        shareBtn = findViewById(R.id.share_btn);
         nextBtn = findViewById(R.id.next_btn);
 
         categort = getIntent().getStringExtra("category");
@@ -114,6 +113,7 @@ public class QuestionsActivity extends AppCompatActivity {
                                 Button optionButton = (Button) optionsContainer.getChildAt(i);
                                 optionButton.setEnabled(true);
                                 optionButton.setBackgroundTintList(null);
+                                optionButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#6B3FA0")));
                             }
                         }
                     });
