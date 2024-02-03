@@ -1,12 +1,12 @@
 package com.example.myapplication1;
 
 public class QuestionModel {
-    private Object question,optionA,optionB,optionC,optionD,correctANS;
+    private String question,optionA,optionB,optionC,optionD,correctANS;
      private  int setNo;
      public  QuestionModel(){
 
      }
-    public QuestionModel(Object question, Object optionA, Object optionB, Object optionC, Object optionD, Object correctANS,int setNo) {
+    public QuestionModel(String question, String optionA, String optionB, String optionC, String optionD, String correctANS,int setNo) {
         this.setNo = setNo;
         this.question = question;
         this.optionA = optionA;
@@ -16,51 +16,51 @@ public class QuestionModel {
         this.correctANS = correctANS;
     }
 
-    public Object getQuestion() {
+    public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(Object question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 
-    public Object getOptionA() {
+    public String getOptionA() {
         return optionA;
     }
 
-    public void setOptionA(Object optionA) {
+    public void setOptionA(String optionA) {
         this.optionA = optionA;
     }
 
-    public Object getOptionB() {
+    public String getOptionB() {
         return optionB;
     }
 
-    public void setOptionB(Object optionB) {
+    public void setOptionB(String optionB) {
         this.optionB = optionB;
     }
 
-    public Object getOptionC() {
+    public String getOptionC() {
         return optionC;
     }
 
-    public void setOptionC(Object optionC) {
+    public void setOptionC(String optionC) {
         this.optionC = optionC;
     }
 
-    public Object getOptionD() {
+    public String getOptionD() {
         return optionD;
     }
 
-    public void setOptionD(Object optionD) {
+    public void setOptionD(String optionD) {
         this.optionD = optionD;
     }
 
-    public Object getCorrectANS() {
+    public String getCorrectANS() {
         return correctANS;
     }
 
-    public void setCorrectANS(Object correctANS) {
+    public void setCorrectANS(String correctANS) {
         this.correctANS = correctANS;
     }
 

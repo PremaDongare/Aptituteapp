@@ -106,7 +106,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
                             count = 0;
                             resetOptions();
-                             playAnim(question, 0, list.get(position).getQuestion().toString());
+                             playAnim(question, 0, list.get(position).getQuestion());
                         }
 
                         private void resetOptions() {
@@ -141,7 +141,7 @@ public class QuestionsActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationStart( Animator animation) {
                         if (value == 0 && count < 4 ){
-                            Object option = "";
+                            String option = "";
                             if (count == 0){
                                 option = list.get(position).getOptionA();
                             } else if (count ==1) {
@@ -151,7 +151,7 @@ public class QuestionsActivity extends AppCompatActivity {
                             }else if (count ==3){
                                 option = list.get(position).getOptionD();
                             }
-                            playAnim(optionsContainer.getChildAt(count), 0, (String) option);
+                            playAnim(optionsContainer.getChildAt(count), 0, option);
                             count++;
                         }
                     }
@@ -183,21 +183,31 @@ public class QuestionsActivity extends AppCompatActivity {
                 });
 
         }
-        private  void checkAnswer(Button selectedOption) {
+        private void checkAnswer(Button selectedOption) {
             enableOption(false);
             nextBtn.setEnabled(true);
             nextBtn.setAlpha(1);
+
             if (selectedOption.getText().toString().equals(list.get(position).getCorrectANS())) {
                 score++;
                 selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF44D53A")));
             } else {
                 selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
-                Button correctoption = (Button) optionsContainer.findViewWithTag(list.get(position).getCorrectANS());
-                if (correctoption != null) {
-                    correctoption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#848484")));
+                Button correctOption = findCorrectOptionButton();
+                if (correctOption != null) {
+                    correctOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF44D53A")));
                 }
-
             }
+        }
+
+        private Button findCorrectOptionButton() {
+            for (int i = 0; i < 4; i++) {
+                Button optionButton = (Button) optionsContainer.getChildAt(i);
+                if (optionButton.getText().toString().equals(list.get(position).getCorrectANS())) {
+                    return optionButton;
+                }
+            }
+            return null;
         }
         private void enableOption(boolean enable){
         for (int i = 0;i < 4; i++){
