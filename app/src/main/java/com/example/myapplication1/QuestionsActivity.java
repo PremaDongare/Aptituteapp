@@ -92,9 +92,10 @@ public class QuestionsActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             nextBtn.setEnabled(false);
                             nextBtn.setAlpha(0.7f);
+                            position++;
 
                             if (position == list.size() ) {
-                                // If all questions are answered, you can launch ScoreActivity here.
+//                              If all questions are answered, you can launch ScoreActivity here.
                                 Intent scoreIntent = new Intent(QuestionsActivity.this, ScoreActivity.class);
                                 scoreIntent.putExtra("score", score);
                                 scoreIntent.putExtra("total", list.size());
@@ -103,7 +104,6 @@ public class QuestionsActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            position++;
                             count = 0;
                             resetOptions();
                             playAnim(question, 0, list.get(position).getQuestion());
@@ -137,8 +137,7 @@ public class QuestionsActivity extends AppCompatActivity {
    }
 
         private  void playAnim(View view, int value,String data) {
-        view.animate().alpha(value).scaleX(value).scaleY(value).setDuration(500).setStartDelay(100)
-                .setInterpolator(new DecelerateInterpolator()).setListener(new Animator.AnimatorListener() {
+        view.animate().alpha(value).scaleX(value).scaleY(value).setDuration(500).setStartDelay(100).setInterpolator(new DecelerateInterpolator()).setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart( Animator animation) {
                         if (value == 0 && count < 4 ){
