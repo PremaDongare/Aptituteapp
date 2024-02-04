@@ -45,6 +45,7 @@
             android:layout_margin="16dp"
             android:padding="16dp"
             android:text="TextView"
+            android:textSize="15dp"
             android:textColor="@android:color/black" />
 
         <TextView
