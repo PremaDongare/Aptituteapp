@@ -6,8 +6,11 @@
         android:id="@+id/Item1"
         />
 
-    <item android:title="Help"
+    <item android:title="Rate Us"
         android:id="@+id/Item2"
         />
 
+    <item android:title="Share App"
+        android:id="@+id/Item3"
+        />
 </menu>
