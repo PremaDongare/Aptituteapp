@@ -113,7 +113,7 @@ public class QuestionsActivity extends AppCompatActivity {
                                 Button optionButton = (Button) optionsContainer.getChildAt(i);
                                 optionButton.setEnabled(true);
                                 optionButton.setBackgroundTintList(null);
-                                optionButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#CDB7F6")));
+                                optionButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#00FFFF")));
                             }
                         }
                     });
