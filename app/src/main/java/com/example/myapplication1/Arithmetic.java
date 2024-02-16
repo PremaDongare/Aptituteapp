@@ -8,14 +8,14 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Verbal_Reasoning extends AppCompatActivity {
-
+public class Arithmetic extends AppCompatActivity {
     RecyclerView recyclerView;
     List<Model> modelList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verbal_reasoning);
+        setContentView(R.layout.activity_arithmetic);
 
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -43,7 +43,6 @@ public class Verbal_Reasoning extends AppCompatActivity {
         modelList.add(new Model("Question 9", "Introducing a boy, a girl said,He is the son of the daughter of the father of my uncle. How is the boy related to the girl?\n1)Brother\n2)Uncle\n3)Cousin\n4)Son-in-law\n\nAnswer: Option 1)"));
         modelList.add(new Model("Question 10", "Pointing to a photograph Lata says,He is the son of the only son of my grandfather.How is the man in the photograph related to Lata?\n1)Brother\n2)Data is inadequate\n3)Cousin\n4)Son-in-law\n\nAnswer: Option 1)\nExplanation:\nThe man in the photograph is the son of the only son of Lata's grandfather i.e., the man is the son of Lata's father. Hence, the man is the brother of Lata."));
         modelList.add(new Model("Question 11", "If A + B means A is the brother of B; A x B means A is the son of B; and A % B means B is the daughter of A then which of the following means M is the maternal uncle of N?\n1)M + O x N\n2)M % O x N + P\n3)M + O % N\n4)None of these\n\nAnswer: Option 4)\nExplanation:\nBecause the sex of O is not known.\n"));
-        modelList.add(new Model("Question 12", ""));
         modelList.add(new Model("Question 13", "Pointing to a photograph. Bajpai said, He is the son of the only daughter of the father of my brother.How Bajpai is related to the man in the photograph?\n1)Uncle\n2)Brother\n3)Cousin\n4)Father\n\nAnswer: Option 4)\nExplanation:\nThe man in the photo is the son of the sister of Bajpai. Hence, Bajpai is the maternal uncle of the man in the photograph."));
         modelList.add(new Model("Question 14", "Deepak said to Nitin, That boy playing with the football is the younger of the two brothers of the daughter of my father's wife.How is the boy playing football related to Deepak?\n1)Brother\n2)Son\n3)Cousin\n4)Cannot be determined\n\nAnswer: Option 1)\nExplanation:\nFather's wife → mother. Hence, the daughter of the mother means sister and sister's younger brother means brother. Therefore, the boy is the brother of Deepak."));
         modelList.add(new Model("Question 15", "Choose the word which is different from the rest.\n1)Chicken\n2)Snake\n3)Swan\n4)Crocodile\n\nAnswer: Option 1)\nExplanation:\nAll except Chicken can live in water."));
@@ -58,18 +57,3 @@ public class Verbal_Reasoning extends AppCompatActivity {
         modelList.add(new Model("Question 25", "A boy rode his bicycle Northward, then turned left and rode 1 km and again turned left and rode 2 km. He found himself 1 km west of his starting point. How far did he ride northward initially?\n1)4 km\n2)1 km\n3)2 km\n4)7 km\n\nAnswer: Option 3)"));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

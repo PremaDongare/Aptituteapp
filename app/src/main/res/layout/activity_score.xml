@@ -18,8 +18,8 @@
         tools:layout_editor_absoluteY="205dp">
 
         <LinearLayout
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
@@ -27,7 +27,7 @@
             <com.airbnb.lottie.LottieAnimationView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:lottie_rawRes="@raw/ok"
+                app:lottie_rawRes="@raw/batch"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 />
@@ -75,9 +75,10 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1">
     <Button
         android:id="@+id/done_btn"
@@ -85,7 +86,7 @@
         android:layout_height="wrap_content"
         android:text="Done"
         android:textColor="@color/black"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="50dp"
         android:textStyle="bold"
         android:textSize="20sp"
         android:background="@drawable/border"

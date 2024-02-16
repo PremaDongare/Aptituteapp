@@ -4,7 +4,7 @@
     android:layout_height="110dp"
     android:gravity="center"
     android:layout_gravity="center"
-    android:backgroundTint="#FFFFFF"
+    android:backgroundTint="#B2FFFF"
     android:background="@drawable/border"
     android:orientation="vertical">
 

@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:background="@color/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:titleTextColor="@color/black"
         android:layout_height="?attr/actionBarSize"/>
     <TextView
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:columnWidth="150dp"
-        android:verticalSpacing="2dp"
+        android:verticalSpacing="20dp"
         android:horizontalSpacing="2dp"
         android:numColumns="auto_fit"
         android:gravity="center"/>

@@ -49,7 +49,7 @@ public class QuestionsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         question = findViewById(R.id.question);
-        noIndicator = findViewById(R.id.no_indicator);
+        //noIndicator = findViewById(R.id.no_indicator);
         optionsContainer = findViewById(R.id.options_container);
         nextBtn = findViewById(R.id.next_btn);
 
