@@ -7,12 +7,14 @@ import androidx.appcompat.widget.Toolbar;
 import android.animation.Animator;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +39,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private List<QuestionModel> list;
     private int position = 0;
     private int score = 0;
-    private String categort;
+    private String category;
     private int setNo;
     private Dialog loadingDialog;
 
@@ -53,7 +55,7 @@ public class QuestionsActivity extends AppCompatActivity {
         optionsContainer = findViewById(R.id.options_container);
         nextBtn = findViewById(R.id.next_btn);
 
-        categort = getIntent().getStringExtra("category");
+        category = getIntent().getStringExtra("category");
         setNo = getIntent().getIntExtra("setNo", 1);
 
         loadingDialog = new Dialog(this);
@@ -64,7 +66,17 @@ public class QuestionsActivity extends AppCompatActivity {
 
         list = new ArrayList<>();
         loadingDialog.show();
-        myRef.child("SETS").child(categort).child("questions").orderByChild("setNo").equalTo(setNo).addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+        // Check if the current set is locked
+        if (isSetLocked(category, setNo)) {
+            // Optionally, you can show a message or take appropriate actions for a locked set.
+            Toast.makeText(QuestionsActivity.this, "Set locked. Complete the previous sets to unlock.", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        myRef.child("SETS").child(category).child("questions").orderByChild("setNo").equalTo(setNo).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -132,87 +144,109 @@ public class QuestionsActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    private boolean isSetLocked(String category, int setNumber) {
+        // Use SharedPreferences to store and retrieve the user's scores
+        SharedPreferences preferences = getSharedPreferences("user_scores", MODE_PRIVATE);
 
+        ImageView lock = findViewById(R.id.lock);
+        ImageView unlock = findViewById(R.id.unlock);
 
-   }
-
-        private  void playAnim(View view, int value,String data) {
+        if (setNumber > 1) {
+            int previousSetScore = preferences.getInt(category + "_set" + (setNumber - 1), 0);
+            // If the previous set is not unlocked, the current set is locked
+            Boolean x= previousSetScore < 7;
+//            unlock.setVisibility(x?View.INVISIBLE:View.VISIBLE);
+//            lock.setVisibility(x?View.VISIBLE:View.INVISIBLE);
+            return x;
+        } else {
+            // For the first set, it is always unlocked
+//            lock.setVisibility(View.INVISIBLE);
+//            unlock.setVisibility(View.VISIBLE);
+            return false;
+        }
+    }
+    private  void playAnim(View view, int value,String data) {
         view.animate().alpha(value).scaleX(value).scaleY(value).setDuration(500).setStartDelay(100).setInterpolator(new DecelerateInterpolator()).setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart( Animator animation) {
-                        if (value == 0 && count < 4 ){
-                            String option = "";
-                            if (count == 0){
-                                option = list.get(position).getOptionA();
-                            } else if (count ==1) {
-                                option = list.get(position).getOptionB();
-                            }else if (count ==2){
-                                option = list.get(position).getOptionC();
-                            }else if (count ==3){
-                                option = list.get(position).getOptionD();
-                            }
-                            playAnim(optionsContainer.getChildAt(count), 0, option);
-                            count++;
-                        }
+            @Override
+            public void onAnimationStart( Animator animation) {
+                if (value == 0 && count < 4 ){
+                    String option = "";
+                    if (count == 0){
+                        option = list.get(position).getOptionA();
+                    } else if (count ==1) {
+                        option = list.get(position).getOptionB();
+                    }else if (count ==2){
+                        option = list.get(position).getOptionC();
+                    }else if (count ==3){
+                        option = list.get(position).getOptionD();
                     }
-
-                    @Override
-                    public void onAnimationEnd( Animator animation) {
-                        if (value == 0) {
-                            try {
-                                ((TextView) view).setText(data);
-                            } catch (ClassCastException ex) {
-                                ((Button) view).setText(data);
-                            }
-                            view.setTag(data);
-
-                            playAnim(view, 1, data);
-                        }
-                    }
-
-
-                    @Override
-                    public void onAnimationCancel( Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat( Animator animation) {
-
-                    }
-                });
-
-        }
-        private void checkAnswer(Button selectedOption) {
-            enableOption(false);
-            nextBtn.setEnabled(true);
-            nextBtn.setAlpha(1);
-
-            if (selectedOption.getText().toString().equals(list.get(position).getCorrectANS())) {
-                score++;
-                selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF44D53A")));
-            } else {
-                selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
-                Button correctOption = findCorrectOptionButton();
-                if (correctOption != null) {
-                    correctOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF44D53A")));
+                    playAnim(optionsContainer.getChildAt(count), 0, option);
+                    count++;
                 }
             }
-        }
 
-        private Button findCorrectOptionButton() {
-            for (int i = 0; i < 4; i++) {
-                Button optionButton = (Button) optionsContainer.getChildAt(i);
-                if (optionButton.getText().toString().equals(list.get(position).getCorrectANS())) {
-                    return optionButton;
+            @Override
+            public void onAnimationEnd( Animator animation) {
+                if (value == 0) {
+                    try {
+                        ((TextView) view).setText(data);
+                    } catch (ClassCastException ex) {
+                        ((Button) view).setText(data);
+                    }
+                    view.setTag(data);
+
+                    playAnim(view, 1, data);
                 }
             }
-            return null;
+
+
+            @Override
+            public void onAnimationCancel( Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat( Animator animation) {
+
+            }
+        });
+    }
+    private void checkAnswer(Button selectedOption) {
+        enableOption(false);
+        nextBtn.setEnabled(true);
+        nextBtn.setAlpha(1);
+
+        if (selectedOption.getText().toString().equals(list.get(position).getCorrectANS())) {
+            score++;
+            selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF44D53A")));
+            // Update the user's score for the current set in SharedPreferences
+            SharedPreferences preferences = getSharedPreferences("user_scores", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(category + "_set" + setNo, score);
+            editor.apply();
+        } else {
+            selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
+            Button correctOption = findCorrectOptionButton();
+            if (correctOption != null) {
+                correctOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF44D53A")));
+            }
         }
-        private void enableOption(boolean enable){
+    }
+
+    private Button findCorrectOptionButton() {
+        for (int i = 0; i < 4; i++) {
+            Button optionButton = (Button) optionsContainer.getChildAt(i);
+            if (optionButton.getText().toString().equals(list.get(position).getCorrectANS())) {
+                return optionButton;
+            }
+        }
+        return null;
+    }
+    private void enableOption(boolean enable){
         for (int i = 0;i < 4; i++){
             optionsContainer.getChildAt(i).setEnabled(enable);
 
         }
-        }
+    }
 }
