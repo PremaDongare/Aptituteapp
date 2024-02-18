@@ -49,7 +49,7 @@ public class GridAdapter extends BaseAdapter {
                 parent.getContext().startActivity(questionIntent);
             }
         });
-        ((TextView)view.findViewById(R.id.textview)).setText(String.valueOf(position+1));
+        ((TextView)view.findViewById(R.id.textview)).setText("Set "+String.valueOf(position+1));
 
 
         return view;
