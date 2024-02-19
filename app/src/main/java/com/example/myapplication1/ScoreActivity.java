@@ -1,14 +1,12 @@
 package com.example.myapplication1;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ScoreActivity extends AppCompatActivity {
     private TextView scored,total;
@@ -20,30 +18,22 @@ public class ScoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Learning");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         scored = findViewById(R.id.score);
         total = findViewById(R.id.total);
         done_btn = findViewById(R.id.done_btn);
-        scored.setText(String.valueOf(getIntent().getIntExtra("score", 0)));
+        int a = getIntent().getIntExtra("score", 0);
+        scored.setText(String.valueOf(a));
         total.setText("/"+String.valueOf(getIntent().getIntExtra("total", 0)));
         done_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (a > 7) {
+                    Toast.makeText(ScoreActivity.this, "Next Set is Unlocked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ScoreActivity.this, "Score is Not Satisfied", Toast.LENGTH_SHORT).show();
+                }
                 finish();
             }
         });
-
-    }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
