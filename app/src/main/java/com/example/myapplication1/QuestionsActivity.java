@@ -149,20 +149,12 @@ public class QuestionsActivity extends AppCompatActivity {
         // Use SharedPreferences to store and retrieve the user's scores
         SharedPreferences preferences = getSharedPreferences("user_scores", MODE_PRIVATE);
 
-        ImageView lock = findViewById(R.id.lock);
-        ImageView unlock = findViewById(R.id.unlock);
-
         if (setNumber > 1) {
             int previousSetScore = preferences.getInt(category + "_set" + (setNumber - 1), 0);
             // If the previous set is not unlocked, the current set is locked
-            Boolean x= previousSetScore < 7;
-//            unlock.setVisibility(x?View.INVISIBLE:View.VISIBLE);
-//            lock.setVisibility(x?View.VISIBLE:View.INVISIBLE);
-            return x;
+            return previousSetScore < 7;
         } else {
             // For the first set, it is always unlocked
-//            lock.setVisibility(View.INVISIBLE);
-//            unlock.setVisibility(View.VISIBLE);
             return false;
         }
     }
