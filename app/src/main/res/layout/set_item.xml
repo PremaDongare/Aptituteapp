@@ -9,8 +9,6 @@
     android:background="@drawable/border"
     android:orientation="vertical">
 
-
-
     <TextView
         android:id="@+id/textview"
         android:layout_width="match_parent"
