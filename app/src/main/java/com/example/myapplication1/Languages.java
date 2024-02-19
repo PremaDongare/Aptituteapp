@@ -1,6 +1,8 @@
 package com.example.myapplication1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +32,11 @@ public class Languages extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_languages);
         recyclerView = findViewById(R.id.recyclerView);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Languages");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initData();
         setRecyclerView();
@@ -70,6 +78,13 @@ public class Languages extends AppCompatActivity {
         modelList.add(new Model("Question 26", "What will you do to treat the constant 3.14 as a long double?\n1)use 3.14LD\n2)use 3.14L\n3)use 3.14DL\n4)use 3.14LF\n\nAnswer: Option 2)\nExplanation:Given 3.14 is a double constant.\nTo specify 3.14 as long double, we have to add L to the 3.14. (i.e 3.14L)"));
         modelList.add(new Model("Question 27", "A float occupies 4 bytes. If the hexadecimal equivalent of these 4 bytes are A, B, C and D, then when this float is stored in memory in which of the following order do these bytes gets stored?\n1)ABCD\n2)DCBA\n3)0xABCD\n4)Depends on big endian or little endian architecture\n\nAnswer: Option 4)"));
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

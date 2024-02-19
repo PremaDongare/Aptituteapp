@@ -1,9 +1,12 @@
 package com.example.myapplication1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,11 @@ public class HR_Question extends AppCompatActivity {
         setContentView(R.layout.activity_hr_question);
 
         recyclerView = findViewById(R.id.recyclerView);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("HR Question");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initData();
         setRecyclerView();
@@ -55,4 +63,12 @@ public class HR_Question extends AppCompatActivity {
         modelList.add(new Model("Question 21", "Do you have any questions for me?\nYes sir, what do you think I should improve in myself? or What are the roles and responsibilities of this job role and what are the daily day-to-day activities?"));
 
         }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

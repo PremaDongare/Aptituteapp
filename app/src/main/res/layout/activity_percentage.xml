@@ -8,6 +8,7 @@
     tools:context=".Percentage">
     <include
         layout="@layout/toolbar"
+        app:titleTextColor="@color/black"
         android:id="@+id/toolbar"
         />
 
