@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Arithmetic">
+    tools:context=".Basic_GK">
     <include
         layout="@layout/toolbar"
-        app:titleTextColor="@color/black"
         android:id="@+id/toolbar"
+        app:titleTextColor="@color/black"
         />
 
     <androidx.recyclerview.widget.RecyclerView

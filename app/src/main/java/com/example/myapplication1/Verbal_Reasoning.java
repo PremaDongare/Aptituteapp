@@ -1,9 +1,12 @@
 package com.example.myapplication1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,11 @@ public class Verbal_Reasoning extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verbal_reasoning);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Verbal Reasoning");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -56,6 +64,13 @@ public class Verbal_Reasoning extends AppCompatActivity {
         modelList.add(new Model("Question 23", "Y is in the East of X which is in the North of Z. If P is in the South of Z, then in which direction of Y, is P?1)West\n2)East\n3)None of these\n4)South\n\nAnswer: Option 3)"));
         modelList.add(new Model("Question 24", "A man walks 5 km toward south and then turns to the right. After walking 3 km he turns to the left and walks 5 km. Now in which direction is he from the starting place?\n1)East\n2)South\n3)South-West\n4)North-East\n\nAnswer: Option 2)"));
         modelList.add(new Model("Question 25", "A boy rode his bicycle Northward, then turned left and rode 1 km and again turned left and rode 2 km. He found himself 1 km west of his starting point. How far did he ride northward initially?\n1)4 km\n2)1 km\n3)2 km\n4)7 km\n\nAnswer: Option 3)"));
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

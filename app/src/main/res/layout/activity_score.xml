@@ -9,6 +9,7 @@
     <include
         layout="@layout/toolbar"
         android:id="@+id/toolbar"
+        app:titleTextColor="@color/black"
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,6 +34,31 @@
                 />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Questions Attempted :"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="19sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_marginStart="4dp"
+                android:textColor="@color/black"
+                android:textSize="19sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView2"
@@ -75,21 +101,17 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
     <Button
         android:id="@+id/done_btn"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="Done"
         android:textColor="@color/black"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:background="@drawable/border"
         android:layout_gravity="center_horizontal"/>
-    </FrameLayout>
+
+
 </LinearLayout>
