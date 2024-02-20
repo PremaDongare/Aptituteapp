@@ -51,6 +51,7 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:maxLines="@integer/material_motion_duration_medium_1"
                 android:hint="Full Name"
                 />
         </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +65,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:maxLines="@integer/material_motion_duration_medium_1"
                 android:hint="Email"
                 />
         </com.google.android.material.textfield.TextInputLayout>
@@ -78,6 +80,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Password"
+                android:inputType="textPassword"
+                android:maxLines="@integer/material_motion_duration_medium_1"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:maxLines="@integer/material_motion_duration_medium_1"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 

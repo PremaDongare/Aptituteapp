@@ -30,93 +30,101 @@ import com.google.firebase.storage.UploadTask;
 
 public class SignUp extends AppCompatActivity {
 
-        TextInputEditText editTextEmail, editTextPassword,editTextName;
-        Button button_signup;
-        FirebaseAuth mAuth;
-        ProgressBar progressBar;
-        TextView textView;
+    TextInputEditText editTextEmail, editTextPassword,editTextName, editTextConfirmPassword;
+    Button button_signup;
+    FirebaseAuth mAuth;
+    ProgressBar progressBar;
+    TextView textView;
 
-        @Override
-        public void onStart() {
-            super.onStart();
-            // Check if user is signed in (non-null) and update UI accordingly.
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            if (currentUser != null) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+    @Override
+    public void onStart() {
+
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_up);
+
+
+        mAuth = FirebaseAuth.getInstance();
+        editTextName = findViewById(R.id.name);
+        editTextEmail = findViewById(R.id.email);
+        editTextPassword = findViewById(R.id.password);
+        editTextConfirmPassword = findViewById(R.id.confirm_password);
+        button_signup = findViewById(R.id.Btn_signup);
+        progressBar = findViewById(R.id.progressBar);
+        textView = findViewById(R.id.loginNow);
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
                 finish();
             }
-        }
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_sign_up);
+        });
 
+        button_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                String email, password, full_name, confirm_password;
+                full_name = String.valueOf(editTextName.getText().toString());
+                email = String.valueOf(editTextEmail.getText().toString());
+                password = String.valueOf(editTextPassword.getText().toString());
+                confirm_password = String.valueOf(editTextConfirmPassword.getText());
 
-            mAuth = FirebaseAuth.getInstance();
-            editTextName = findViewById(R.id.name);
-            editTextEmail = findViewById(R.id.email);
-            editTextPassword = findViewById(R.id.password);
-            button_signup = findViewById(R.id.Btn_signup);
-            progressBar = findViewById(R.id.progressBar);
-            textView = findViewById(R.id.loginNow);
-
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getApplicationContext(), Login.class);
-                    startActivity(intent);
-                    finish();
+                if(TextUtils.isEmpty(full_name)){
+                    Toast.makeText(SignUp.this, "Please enter your Name.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-            });
 
-            button_signup.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    String email, password, full_name;
-                    full_name = String.valueOf(editTextName.getText().toString());
-                    email = String.valueOf(editTextEmail.getText().toString());
-                    password = String.valueOf(editTextPassword.getText().toString());
+                if(TextUtils.isEmpty(email)){
+                    Toast.makeText(SignUp.this, "Please enter your E-mail.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                    if(TextUtils.isEmpty(full_name)){
-                        Toast.makeText(SignUp.this, "Please enter your Name.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                if(TextUtils.isEmpty(password)){
+                    Toast.makeText(SignUp.this, "Please enter your Password.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                    if(TextUtils.isEmpty(email)){
-                        Toast.makeText(SignUp.this, "Please enter your E-mail.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                if (!password.equals(confirm_password)) {
+                    Toast.makeText(SignUp.this, "Password does not match", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                    if(TextUtils.isEmpty(password)){
-                        Toast.makeText(SignUp.this, "Please enter your Password.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
 
-                    // firebase code
+                // firebase code
 
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    progressBar.setVisibility(View.GONE);
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(SignUp.this, "User Signed Up successfully.", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        //open user profile after successful signed Up
-                                        startActivity(intent);
-                                        finish();
-                                    }else {
-                                        Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressBar.setVisibility(View.GONE);
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(SignUp.this, "User Signed Up successfully.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    //open user profile after successful signed Up
+                                    startActivity(intent);
+                                    finish();
+                                }else {
+                                    Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                            });
-                }
-            });
-        }
 
+                            }
+                        });
+            }
+        });
+    }
 }
 
 

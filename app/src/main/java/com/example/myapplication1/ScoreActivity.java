@@ -30,7 +30,7 @@ public class ScoreActivity extends AppCompatActivity {
                 if (a > 7) {
                     Toast.makeText(ScoreActivity.this, "Next Set is Unlocked", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ScoreActivity.this, "Score is Not Satisfied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScoreActivity.this, "YOU HAVE TO SCORE 8 MARKS TO UNLOCK THE NEXT SET", Toast.LENGTH_SHORT).show();
                 }
                 finish();
             }
