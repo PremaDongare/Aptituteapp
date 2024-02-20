@@ -5,7 +5,7 @@
     android:layout_height="110dp"
     android:gravity="center"
     android:layout_gravity="center"
-    android:backgroundTint="#B2FFFF"
+    android:backgroundTint="#FFFFFF"
     android:background="@drawable/border"
     android:orientation="vertical">
 
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:hint="Set 1"
         android:gravity="center"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
         android:layout_gravity="center"/>

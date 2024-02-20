@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/blue1"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <include
@@ -13,10 +13,41 @@
         android:id="@+id/toolbar"
         />
 
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:flipInterval="2000"
+        android:autoStart="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:inAnimation="@android:anim/slide_in_left"
+        android:outAnimation="@android:anim/slide_out_right"
+        >
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/a"
+
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/b"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/c"
+                />
+    </ViewFlipper>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="101dp"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
@@ -27,7 +58,7 @@
             android:clickable="true"
             android:layout_width="200dp"
             android:layout_height="155dp"
-            android:layout_margin="11dp"
+            android:layout_margin="10dp"
             android:backgroundTint="@color/colorPrimary"
             android:background="@drawable/border"
             app:cardElevation="7dp"
@@ -62,7 +93,10 @@
             android:backgroundTint="@color/colorPrimary"
             android:background="@drawable/border"
             app:cardElevation="7dp"
-            android:layout_margin="11dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="8dp"
             >
             <ImageView
                 android:layout_width="match_parent"
