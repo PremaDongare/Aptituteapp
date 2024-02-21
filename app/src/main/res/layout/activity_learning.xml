@@ -185,7 +185,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Learn and Test"
+                android:text="Learn and Understand"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:layout_marginStart="10dp"
