@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@drawable/blue1"
     android:layout_height="match_parent"
     tools:context=".SignUp">
 
@@ -96,7 +97,7 @@
                 android:id="@+id/confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Password"
+                android:hint="Confirm Password"
                 android:inputType="textPassword"
                 android:maxLines="@integer/material_motion_duration_medium_1"
                 />
