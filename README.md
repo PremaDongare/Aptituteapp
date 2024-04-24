@@ -7,5 +7,6 @@ Quiz Section: Put your knowledge to the test with challenging quizzes across mul
 Key Features:
 Each section comprises 5 sets of questions, ensuring a rich learning experience.
 Progression System: Unlock the next activity by scoring over 7 marks in the previous one, encouraging continuous improvement.
+You can share this app through various platforms.
 
 Note: signup before login.
